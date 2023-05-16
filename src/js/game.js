@@ -1,22 +1,29 @@
-import '../css/style.css'
-import { Actor, Engine, Vector } from "excalibur"
-import { Resources, ResourceLoader } from './resources.js'
-
+import {Actor, Engine, Vector, Color, Debug, Physics} from "excalibur";
+import {Resources, ResourceLoader} from "./resources.js";
+import {DVD} from "./dvd";
+import {Tree} from "./tree";
+import {Grass} from "./grass";
 export class Game extends Engine {
-
     constructor() {
-        super({ width: 800, height: 600 })
-        this.start(ResourceLoader).then(() => this.startGame())
+        Physics.useRealisticPhysics();
+        Physics.acc = new Vector(0, 12000);
+        super();
+Physics.enabled = true;
+        this.start(ResourceLoader).then(() => this.startGame());
     }
 
     startGame() {
-        console.log("start de game!")
-        const fish = new Actor()
-        fish.graphics.use(Resources.Fish.toSprite())
-        fish.pos = new Vector(400, 300)
-        fish.vel = new Vector(-10,0)
-        this.add(fish)
+
+        for (let i = 1; i < 2; i++) {
+            this.add(new DVD());
+            if (i < 5) {
+                this.add(new Tree());
+                this.add(new Tree());
+                this.add(new Grass(i));
+
+            }
+        }
     }
 }
 
-new Game()
+new Game();
