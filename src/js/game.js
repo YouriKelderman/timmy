@@ -1,6 +1,6 @@
 //Imports   **
 //          **
-import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis} from "excalibur";
+import {Engine, Vector, Physics} from "excalibur";
 import {Resources, ResourceLoader} from "./resources.js";
 import {Start} from "./start.js";
 import {World} from "./world.js";
