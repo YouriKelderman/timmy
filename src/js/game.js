@@ -1,29 +1,27 @@
-import {Actor, Engine, Vector, Color, Debug, Physics} from "excalibur";
+//Imports   **
+//          **
+import {Actor, Engine, Vector, Color, Debug, Physics, Input, Axis} from "excalibur";
 import {Resources, ResourceLoader} from "./resources.js";
-import {DVD} from "./dvd";
-import {Tree} from "./tree";
-import {Grass} from "./grass";
+import {Start} from "./start.js";
+import {World} from "./world.js";
+import {End} from "./end.js"
+
 export class Game extends Engine {
     constructor() {
-        Physics.useRealisticPhysics();
-        Physics.acc = new Vector(0, 12000);
-        super();
-Physics.enabled = true;
+        Physics.useArcadePhysics();
+        Physics.acc = new Vector(0, 300);
+        super({width: 700, height: 700});
         this.start(ResourceLoader).then(() => this.startGame());
     }
 
     startGame() {
+        this.addScene('start', new Start());
+        this.addScene('world', new World());
+        this.addScene('end', new End());
+        this.goToScene('start');
+    }
 
-        for (let i = 1; i < 2; i++) {
-            this.add(new DVD());
-            if (i < 5) {
-                this.add(new Tree());
-                this.add(new Tree());
-                this.add(new Grass(i));
-
-            }
-        }
+    onInitialize(_engine) {
     }
 }
-
 new Game();
